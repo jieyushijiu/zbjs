@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>装备数字展厅</title>
+    <meta name="description" content="装备数字展厅首页，支持二维码落地到每件装备的独立介绍页面。">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="home">
+    <div class="site-shell">
+        <div class="hud-grid"></div>
+        <div class="hud-beam beam-a"></div>
+        <div class="hud-beam beam-b"></div>
+
+        <header class="topbar">
+            <a class="brand" href="./index.html">
+                <span class="brand-mark">ZB</span>
+                <span class="brand-text">
+                    <strong>装备数字展厅</strong>
+                    <small>Equipment Atlas Portal</small>
+                </span>
+            </a>
+            <nav class="topnav">
+                <a href="#overview">展厅总览</a>
+                <a href="#equipment-grid">装备矩阵</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero" id="overview">
+                <div class="hero-copy">
+                    <p class="section-kicker">SCAN / IDENTIFY / PRESENT</p>
+                    <h1>每件装备一个独立界面，扫码即达，不再共用详情页。</h1>
+                    <p class="hero-text">
+                        站点采用静态部署方案，适合 Gitee Pages。首页用于总览与导航，二维码直接落到各装备独立页面，
+                        便于后续替换真实图片、参数和现场照片。
+                    </p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#equipment-grid">查看装备</a>
+                        <a class="button button-secondary" href="equip/chaji-qiaogun/index.html">预览独立页</a>
+                    </div>
+                    <ul class="hero-points">
+                        <li>独立静态 URL，适合生成二维码</li>
+                        <li>科技展陈风，适配手机与大屏</li>
+                        <li>图像先用网图占位，后续可手动替换</li>
+                    </ul>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-radar">
+                        <div class="radar-ring ring-1"></div>
+                        <div class="radar-ring ring-2"></div>
+                        <div class="radar-ring ring-3"></div>
+                        <div class="radar-sweep"></div>
+                        <div class="radar-core"></div>
+                    </div>
+                    <div class="hero-panel">
+                        <span>DEPLOYMENT</span>
+                        <strong>Gitee Pages</strong>
+                        <small>适配目录式链接和二维码分发</small>
+                    </div>
+                </div>
+            </section>
+
+            <section class="overview-strip">
+                <article>
+                    <span>07</span>
+                    <strong>装备页面</strong>
+                    <small>每件装备独占一个静态地址</small>
+                </article>
+                <article>
+                    <span>01</span>
+                    <strong>首页总览</strong>
+                    <small>统一展示与快速入口</small>
+                </article>
+                <article>
+                    <span>100%</span>
+                    <strong>移动端适配</strong>
+                    <small>扫码查看不需要额外跳转</small>
+                </article>
+            </section>
+
+            <section class="section-head">
+                <div>
+                    <p class="section-kicker">EQUIPMENT MATRIX</p>
+                    <h2>装备矩阵</h2>
+                </div>
+                <p class="section-note">
+                    首页卡片负责导航，真正的内容展示放在各自独立页面。二维码建议直接指向对应装备页。
+                </p>
+            </section>
+
+            <section class="equipment-grid" id="equipment-grid" aria-label="装备列表"></section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
