@@ -207,9 +207,10 @@ main,
 .hero h1,
 .detail-title {
     margin: 0;
-    line-height: 1.05;
-    font-size: clamp(2.8rem, 6vw, 5.8rem);
-    letter-spacing: -0.04em;
+    line-height: 1.16;
+    font-size: clamp(2.2rem, 4.8vw, 4.6rem);
+    letter-spacing: -0.03em;
+    max-width: 13ch;
 }
 
 .hero-text,
@@ -575,12 +576,75 @@ main,
 }
 
 .detail-hero {
-    padding: 18px 0 30px;
+    position: relative;
+    min-height: clamp(520px, 72vh, 760px);
+    padding: clamp(30px, 4vw, 56px);
+    grid-template-columns: 1fr;
+    gap: 0;
+    align-items: end;
+    overflow: hidden;
+    border-radius: calc(var(--radius-xl) + 4px);
+    border: 1px solid var(--panel-border);
+    background:
+        linear-gradient(90deg, rgba(3, 12, 20, 0.98) 0%, rgba(3, 12, 20, 0.94) 36%, rgba(3, 12, 20, 0.7) 58%, rgba(3, 12, 20, 0.42) 76%, rgba(3, 12, 20, 0.74) 100%),
+        linear-gradient(180deg, rgba(103, 235, 255, 0.06), rgba(103, 235, 255, 0.02)),
+        var(--panel);
+    box-shadow: var(--shadow), inset 0 0 24px rgba(103, 235, 255, 0.05);
+}
+
+.detail-hero.has-art {
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+    background-position: left top, left top, right 28px center, left top;
+    background-size: auto, auto, 46% auto, auto;
+}
+
+.detail-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(135deg, rgba(103, 235, 255, 0.08), transparent 24%, transparent 74%, rgba(103, 235, 255, 0.05)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 30%);
+    pointer-events: none;
 }
 
 .detail-meta {
+    position: relative;
+    z-index: 1;
     display: grid;
-    gap: 16px;
+    gap: 18px;
+    width: min(58%, 760px);
+}
+
+.detail-meta-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.detail-meta-code,
+.detail-meta-status {
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(103, 235, 255, 0.18);
+    background: rgba(6, 20, 32, 0.72);
+    box-shadow: inset 0 0 14px rgba(103, 235, 255, 0.06);
+}
+
+.detail-meta-code {
+    color: var(--accent);
+    font-size: 0.84rem;
+    letter-spacing: 0.18em;
+}
+
+.detail-meta-status {
+    color: var(--text);
+    font-size: 0.96rem;
+    font-weight: 600;
 }
 
 .detail-chip-row {
@@ -598,29 +662,15 @@ main,
     color: var(--accent);
 }
 
+.detail-image-hint {
+    margin: 0;
+    width: min(72%, 620px);
+    color: rgba(231, 251, 255, 0.76);
+    line-height: 1.72;
+}
+
 .detail-image {
-    position: relative;
-    min-height: 520px;
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-}
-
-.detail-image img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.detail-overlay {
-    position: absolute;
-    left: 24px;
-    right: 24px;
-    bottom: 24px;
-    z-index: 1;
-    display: grid;
-    gap: 6px;
+    display: none;
 }
 
 .detail-grid {
@@ -940,9 +990,16 @@ main,
 
 @media (max-width: 1100px) {
     .hero,
-    .detail-hero,
     .detail-grid {
         grid-template-columns: 1fr;
+    }
+
+    .detail-meta {
+        width: min(68%, 760px);
+    }
+
+    .detail-hero.has-art {
+        background-size: auto, auto, 52% auto, auto;
     }
 
     .hero-visual {
@@ -979,8 +1036,20 @@ main,
         grid-template-columns: 1fr;
     }
 
-    .detail-image {
-        min-height: 360px;
+    .detail-hero {
+        min-height: 560px;
+        padding: 26px 22px 28px;
+        align-items: start;
+    }
+
+    .detail-hero.has-art {
+        background-position: left top, left top, center top 26px, left top;
+        background-size: auto, auto, min(calc(100% - 44px), 420px) auto, auto;
+    }
+
+    .detail-meta,
+    .detail-image-hint {
+        width: 100%;
     }
 
     .showcase-grid {
@@ -1007,6 +1076,10 @@ main,
 
     .equipment-card {
         min-height: 340px;
+    }
+
+    .detail-hero {
+        min-height: 500px;
     }
 }
 

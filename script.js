@@ -282,6 +282,88 @@
         references: [
             { label: "便携痕量检测设备参考", url: "https://www.smithsdetection.com/products/ionscan-600/" }
         ]
+    },
+    {
+        id: "dn-vmw-weizhen-shengming-tance",
+        name: "无线微震生命探测车辆检查系统",
+        subtitle: "新锐智能查缉装备",
+        summary: "通过吸附于车底的无线微震动传感器感应车内藏匿人员产生的微小运动或颤动，实现车辆防逃逸和藏匿人员检测。",
+        model: "DN-VMW",
+        status: "专项检测",
+        accent: "#67ebff",
+        accent2: "#9dff8d",
+        imageFiles: ["无线微震探测仪.png", "无线微震探测仪.png"],
+        imageHint: "建议后续补充设备整机图和车底传感器作业图。",
+        tags: ["生命探测", "车辆检查", "防逃逸"],
+        metrics: [
+            { value: "≤30s", label: "单次检测时间短，适合通道车辆快速核查" },
+            { value: "≥100m", label: "工业级无线射频传输，保障现场部署灵活性" },
+            { value: "双车检", label: "可增加传感器实现同时检测两台车辆，提升通行效率" }
+        ],
+        features: [
+            "依靠吸附在检测车辆车底的无线微震动传感器，感应车内藏匿人员传递到车辆上的微小运动或颤动。",
+            "通过专用程序和算法处理微震信号，判断车内是否藏匿人员。",
+            "支持客车、柜式和箱式货车等多种车型，在不开门、不卸货条件下开展检查。"
+        ],
+        scenes: [
+            "口岸通道车辆藏匿人员排查。",
+            "货运车辆不开门、不卸货快速检查。",
+            "重点车辆防逃逸专项检测。"
+        ],
+        notes: [
+            "无线连接方式减少布线环节，便于车道现场快速部署。",
+            "软件界面、指示灯和语音可对检测结果进行多重提示。",
+            "控制和充电部件模块化设计，便于快速维保和故障部件更换。"
+        ],
+        value: [
+            "提升对车辆内部藏匿人员的非接触式发现能力。",
+            "减少开门卸货带来的时间损耗，兼顾通关效率与查验强度。",
+            "为口岸通道防逃逸检测提供稳定技术支撑。"
+        ],
+        references: [
+            { label: "DN-VMW 技术文档", url: "#" }
+        ]
+    },
+    {
+        id: "sc-sj2000m-wurenji-guanzhi",
+        name: "便携式无人机管制设备",
+        subtitle: "新锐智能查缉装备",
+        summary: "集侦测、反制和指挥显控于一体，可对入侵无人机实现事前预警、事中处置和事后取证。",
+        model: "SC-SJ2000M",
+        status: "低空防控",
+        accent: "#67ebff",
+        accent2: "#ff8f70",
+        imageFiles: ["携式无人机管制设备.jpg", "携式无人机管制设备.jpg"],
+        imageHint: "建议后续补充手持设备实物图和现场管制应用图。",
+        tags: ["无人机反制", "侦打一体", "低空防控"],
+        metrics: [
+            { value: "0.3-6GHz", label: "覆盖常见无人机数传、遥控和图传相关频段" },
+            { value: "≥3km", label: "空旷环境下具备远距离无线电侦测能力" },
+            { value: "≤7kg", label: "设备便携，支持手持式、背负式应用" }
+        ],
+        features: [
+            "集无线电侦测、压制干扰和触控显控于一体，支持侦打一体应用。",
+            "可识别绝大多数消费级无人机、部分非常规无人机及穿越机目标。",
+            "可迫使无人机悬停、返航和驱离，并支持多台设备自组网联动。"
+        ],
+        scenes: [
+            "重点区域低空防控和预警处置。",
+            "口岸周边无人机入侵拦截。",
+            "重大安保任务中的无人机管制。"
+        ],
+        notes: [
+            "触控屏可显示无人机型号、方位、参考距离和目标画面等信息。",
+            "支持黑白名单、历史数据和版本更新等系统设置。",
+            "可接入后端指挥管理平台，实现多点协同任务。"
+        ],
+        value: [
+            "提升对低空无人机目标的事前预警和快速处置能力。",
+            "补强边检现场对新型飞行器干扰、驱离和取证的技术手段。",
+            "为口岸立体化安全防控提供新的装备支撑。"
+        ],
+        references: [
+            { label: "SC-SJ2000M 技术文档", url: "#" }
+        ]
     }
 ];
 
@@ -370,8 +452,15 @@ function renderDetail() {
     document.getElementById("detail-summary").textContent = item.summary;
     document.getElementById("detail-model").textContent = item.model;
     document.getElementById("detail-status").textContent = item.status;
-    document.getElementById("detail-image").src = getImagePath(item.imageFiles[0]);
-    document.getElementById("detail-image").alt = item.name;
+    const detailHero = document.querySelector(".detail-hero");
+    if (detailHero) {
+        detailHero.classList.add("has-art");
+        detailHero.style.backgroundImage = [
+            "linear-gradient(90deg, rgba(3, 12, 20, 0.98) 0%, rgba(3, 12, 20, 0.94) 36%, rgba(3, 12, 20, 0.7) 58%, rgba(3, 12, 20, 0.42) 76%, rgba(3, 12, 20, 0.74) 100%)",
+            "linear-gradient(180deg, rgba(103, 235, 255, 0.06), rgba(103, 235, 255, 0.02))",
+            `url("${getImagePath(item.imageFiles[0])}")`
+        ].join(", ");
+    }
     document.getElementById("detail-image-hint").textContent = item.imageHint;
     document.getElementById("detail-showcase-primary").src = getImagePath(item.imageFiles[0]);
     document.getElementById("detail-showcase-primary").alt = `${item.name}主展示图`;
