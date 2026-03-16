@@ -292,7 +292,7 @@
         status: "专项检测",
         accent: "#67ebff",
         accent2: "#9dff8d",
-        imageFiles: ["无线微震探测仪.png", "无线微震探测仪.png"],
+        imageFiles: ["无线微震探测仪-optimized.jpg", "无线微震探测仪-optimized.jpg"],
         imageHint: "建议后续补充设备整机图和车底传感器作业图。",
         tags: ["生命探测", "车辆检查", "防逃逸"],
         metrics: [
@@ -416,7 +416,7 @@ function renderHome() {
 
     grid.innerHTML = equipmentData.map((item, index) => `
         <a class="equipment-card" href="equip/${item.id}/index.html" style="--delay:${index * 0.08}s">
-            <img src="${getImagePath(item.imageFiles[0])}" alt="${item.name}">
+            <img src="${getImagePath(item.imageFiles[0])}" alt="${item.name}" loading="lazy" decoding="async">
             <div class="equipment-card-body">
                 <span class="small-label">${item.model}</span>
                 <h3>${item.name}</h3>
@@ -467,6 +467,10 @@ function renderDetail() {
     document.getElementById("detail-showcase-secondary").src = getImagePath(item.imageFiles[1] || item.imageFiles[0]);
     document.getElementById("detail-showcase-secondary").alt = `${item.name}补充展示图`;
     document.getElementById("detail-showcase-caption").textContent = item.imageHint;
+    document.getElementById("detail-showcase-primary").loading = "lazy";
+    document.getElementById("detail-showcase-primary").decoding = "async";
+    document.getElementById("detail-showcase-secondary").loading = "lazy";
+    document.getElementById("detail-showcase-secondary").decoding = "async";
     document.getElementById("detail-tags").innerHTML = item.tags.map((tag) => `<span class="detail-chip">${tag}</span>`).join("");
     document.getElementById("detail-metrics").innerHTML = createMetrics(item.metrics);
     document.getElementById("detail-features").innerHTML = createList(item.features);
