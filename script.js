@@ -1,368 +1,258 @@
-﻿const equipmentData = [
-    {
-        id: "chaji-qiaogun",
-        name: "查缉撬棍",
-        subtitle: "传统车辆查缉装备",
-        summary: "采用高强度钢制结构，具备撬、拨、顶、压等多种功能，是一线执勤执法的重要基础装备。",
-        model: "BREACH-01",
-        status: "常规配发",
-        accent: "#67ebff",
-        accent2: "#ffb347",
-        imageFiles: ["chaji-qiaogun-1.jpg", "chaji-qiaogun-2.jpg"],
-        imageHint: "占位图建议后续替换为现场实拍或器材棚拍图。",
-        tags: ["破拆", "封闭空间", "强制开拆"],
-        metrics: [
-            { value: "多功能", label: "兼具撬、拨、顶、压等多种功能，适配多类现场处置需求" },
-            { value: "深检查", label: "配合其他装备完成对藏匿点的深度检查，确保不漏检、不遗留" },
-            { value: "基础型", label: "作为传统查缉装备，支撑日常交通运输工具边防检查全流程作业" }
-        ],
-        features: [
-            "采用高强度钢制结构，具备撬、拨、顶、压等多种功能。",
-            "可对车辆封闭部位、货物包装、可疑箱体及封堵结构进行强制开启和缝隙扩张。",
-            "可撬动固定物，并配合其他装备完成对藏匿点的深度检查。"
-        ],
-        scenes: [
-            "口岸车辆与货物查验。",
-            "封闭箱体拆解。",
-            "可疑包裹开启。"
-        ],
-        notes: [
-            "优先用于封闭部位和可疑结构的初步处置。",
-            "与照明、内窥、记录等装备协同使用效果更佳。",
-            "使用后检查受力部位和工具磨损情况。"
-        ],
-        value: [
-            "支撑对封闭结构和可疑部位的快速处置。",
-            "为后续深度检查打开作业入口。",
-            "夯实传统人工查验的基础保障能力。"
-        ],
-        references: [
-            { label: "Stanley pry bar 类工具参考", url: "https://www.stanleytools.com/" }
-        ]
-    },
-    {
-        id: "chaji-tongtiao",
-        name: "查缉通条",
-        subtitle: "传统车辆查缉装备",
-        summary: "主要用于狭长、隐蔽空间和堆装大体积货物的深层插探、拨查和搅动，帮助直观感知和排查藏匿风险。",
-        model: "PROBE-07",
-        status: "高频使用",
-        accent: "#55f0ff",
-        accent2: "#3ddc97",
-        imageFiles: ["chaji-tongtiao-1.jpg", "chaji-tongtiao-2.jpg"],
-        tags: ["插探", "缝隙", "抽检"],
-        metrics: [
-            { value: "隐蔽点", label: "面向排气管、座椅缝隙、备胎仓等狭长隐蔽空间开展探查" },
-            { value: "大货量", label: "适用于木炭、沙石等堆装大体积货物的深层拨查" },
-            { value: "直感知", label: "依靠直观感知排查违禁品、可疑物品和伪装夹层、暗格" }
-        ],
-        features: [
-            "主要用于车辆排气管、座椅缝隙、备胎仓等狭长、隐蔽空间检查。",
-            "可对木炭、沙石等堆装大体积货物进行深层插探、拨查和搅动。",
-            "能够帮助发现伪装夹层、暗格及其他藏匿风险点。"
-        ],
-        scenes: [
-            "通道车辆临检。",
-            "货运车辆普查。",
-            "货运车辆抽查。"
-        ],
-        notes: [
-            "适合作为人工查验中的延伸触达工具。",
-            "对异常阻尼或触感点位应及时标记复查。",
-            "使用后注意清洁和检查杆体状态。"
-        ],
-        value: [
-            "强化对狭长、隐蔽空间的人工探查能力。",
-            "提高对伪装夹层、暗格的发现概率。",
-            "提升货运车辆普查、抽查的查验深度。"
-        ],
-        references: [
-            { label: "通用工业探针器械参考", url: "https://www.mcmaster.com/probes/" }
-        ]
-    },
-    {
-        id: "chaji-gongjuxiang",
-        name: "查缉工具箱",
-        subtitle: "传统车辆查缉装备",
-        summary: "集成多类实用工具，满足车辆部件拆解、应急破拆、现场固定和基础维修等需求。",
-        model: "KIT-09",
-        status: "机动保障",
-        accent: "#67ebff",
-        accent2: "#ffd166",
-        imageFiles: ["chaji-gongjuxiang-1.jpg", "chaji-gongjuxiang-2.jpg"],
-        imageHint: "当前为工业工具箱示意图，适合后续换成真实套装摆拍图。",
-        tags: ["集成", "维护", "应急"],
-        metrics: [
-            { value: "工具集", label: "集成螺丝刀、扳手、强光手电、测量尺、约束器材等实用工具" },
-            { value: "现场型", label: "满足现场拆解、固定、应急破拆和基础维修等任务需求" },
-            { value: "支撑型", label: "作为基础保障装备，支撑日常查缉作业稳定开展" }
-        ],
-        features: [
-            "集成螺丝刀、扳手、强光手电、测量尺、约束器材等实用工具。",
-            "满足车辆部件拆解、应急破拆、现场固定、基础维修等需求。",
-            "为复杂查验现场提供稳定的工具保障。"
-        ],
-        scenes: [
-            "可疑改装车核查。",
-            "复杂部位拆解查验。"
-        ],
-        notes: [
-            "适合在复杂部位拆解和现场固定时集中调用。",
-            "任务后应及时清点和归位。",
-            "保持箱内工具分类清晰，便于快速取用。"
-        ],
-        value: [
-            "为复杂查验任务提供稳定的工具保障。",
-            "提升现场拆解、固定和应急处置效率。",
-            "支撑一线执勤执法的连续作业能力。"
-        ],
-        references: [
-            { label: "工业工具箱图像参考", url: "https://www.pexels.com/search/toolbox/" }
-        ]
-    },
-    {
-        id: "shouchi-beisanse-jianceyi",
-        name: "手持背散射检测仪",
-        subtitle: "新锐智能查缉装备",
-        summary: "采用 X 射线背散射成像技术，实现单侧非接触扫描和实时成像，适用于重点车辆无损检测。",
-        model: "SCAN-XR",
-        status: "重点装备",
-        accent: "#77f5ff",
-        accent2: "#3ddc97",
-        imageFiles: ["shouchi-beisanse-jianceyi-1.jpg", "shouchi-beisanse-jianceyi-2.jpg"],
-        imageHint: "当前为便携检测设备类示意图，建议后续换成真实仪器图。",
-        tags: ["成像", "无损检查", "便携"],
-        metrics: [
-            { value: "背散射", label: "采用 X 射线背散射成像技术，对隐蔽夹层进行快速识别" },
-            { value: "实时化", label: "单侧非接触扫描、实时成像，提高查验效率和安全性" },
-            { value: "高识别", label: "可清晰显示毒品、爆炸物、管制器具等违禁物品" }
-        ],
-        features: [
-            "采用 X 射线背散射成像技术，可进行单侧非接触扫描。",
-            "可穿透车体夹层、门板、轮胎、内饰等结构实现实时成像。",
-            "能够清晰显示毒品、爆炸物、管制器具等违禁物品。"
-        ],
-        scenes: [
-            "车辆隐蔽夹层排查。",
-            "重点车辆无损检测。"
-        ],
-        notes: [
-            "适用于非接触、无死角、快识别查验任务。",
-            "应严格执行设备安全操作要求。",
-            "对异常影像结果应及时固定和复核。"
-        ],
-        value: [
-            "显著提升重点车辆无损检测能力。",
-            "减少大面积破拆带来的作业成本和干扰。",
-            "增强对隐蔽夹层违禁物品的快速识别能力。"
-        ],
-        references: [
-            { label: "手持背散射检测设备参考", url: "https://www.rapiscansystems.com/en/products/miniz" }
-        ]
-    },
-    {
-        id: "sixiang-neikuijing",
-        name: "四项内窥镜",
-        subtitle: "新锐智能查缉装备",
-        summary: "采用多探头、柔性管线和高清成像方案，可深入人工无法触及的狭小空间开展可视化探查和固定证据。",
-        model: "V-SCOPE 4D",
-        status: "精查装备",
-        accent: "#67ebff",
-        accent2: "#9dff8d",
-        imageFiles: ["sixiang-neikuijing-1.jpg", "sixiang-neikuijing-2.jpg"],
-        imageHint: "当前为工业精密设备示意图，适合后续换成内窥镜实拍图。",
-        tags: ["内窥", "可视化", "取证"],
-        metrics: [
-            { value: "多探头", label: "多探头设计提升狭小空间探查覆盖面" },
-            { value: "高清化", label: "高清成像并支持拍照录像固定证据" },
-            { value: "深可达", label: "可深入发动机舱、仪表台内部、车门腔体和空调风道" }
-        ],
-        features: [
-            "多探头、柔性管线设计，适应人工难以触及的狭小空间。",
-            "依托高清成像实现可视化探查。",
-            "支持拍照和录像，便于固定证据。"
-        ],
-        scenes: [
-            "车辆暗格排查。",
-            "非法改装藏匿检查。",
-            "狭小腔体深度查验。"
-        ],
-        notes: [
-            "适合承担狭小腔体的深度可视化查验任务。",
-            "关键画面应及时拍照录像留存。",
-            "使用后清洁镜头、探头和线缆。"
-        ],
-        value: [
-            "填补人工无法触及空间的可视化检查盲区。",
-            "提升对非法改装和隐蔽藏匿的取证能力。",
-            "为深度查验提供直观证据支撑。"
-        ],
-        references: [
-            { label: "工业 videoscope 参考", url: "https://www.olympus-ims.com/en/industrial-videoscope/" }
-        ]
-    },
-    {
-        id: "chedi-jiance-jiqiren",
-        name: "车底检测机器人",
-        subtitle: "新锐智能查缉装备",
-        summary: "遥控全向移动，搭载高清摄像头与扫描模块，可自动完成车底全景扫描成像并智能识别异常装置。",
-        model: "UV-ROBOT",
-        status: "高价值装备",
-        accent: "#67ebff",
-        accent2: "#ff8f70",
-        imageFiles: ["chedi-jiance-jiqiren-1.jpg", "chedi-jiance-jiqiren-2.jpg"],
-        imageHint: "当前为机器人设备示意图，建议后续替换为车底机器人实景图。",
-        tags: ["机器人", "车底", "扫描"],
-        metrics: [
-            { value: "遥控化", label: "遥控全向移动，替代人工俯身、钻底检查" },
-            { value: "全景化", label: "自动完成车底全景扫描成像，提高普查和抽查效率" },
-            { value: "智能化", label: "智能识别非法改装、夹带和悬挂可疑装置" }
-        ],
-        features: [
-            "遥控全向移动，适应车底复杂检查环境。",
-            "搭载高清摄像头与扫描模块，自动完成车底全景扫描成像。",
-            "可智能识别非法改装、夹带、悬挂可疑装置。"
-        ],
-        scenes: [
-            "口岸通道车辆车底普查、抽查。",
-            "重点车辆安检。",
-            "高风险车辆排查。"
-        ],
-        notes: [
-            "适合高流量通道的连续检查任务。",
-            "扫描结果应及时归档并转人工确认。",
-            "使用前检查设备行走和图像采集状态。"
-        ],
-        value: [
-            "替代人工俯身、钻底检查，降低执勤风险。",
-            "提升车底普查、抽查的效率和覆盖面。",
-            "增强对高风险车辆异常装置的发现能力。"
-        ],
-        references: [
-            { label: "Under vehicle inspection 设备参考", url: "https://www.zkteco.com/en/product/uvss" }
-        ]
-    },
-    {
-        id: "bianxieshi-dupin-baozha-jianceyi",
-        name: "便携式毒品爆炸检测仪",
-        subtitle: "新锐智能查缉装备",
-        summary: "采用先进检测技术开展痕量检测和快速识别，通过擦拭取样即可精准判定毒品与爆炸物种类。",
-        model: "TRACE-EX",
-        status: "专用检测",
-        accent: "#67ebff",
-        accent2: "#ffd166",
-        imageFiles: ["bianxieshi-dupin-baozha-jianceyi-1.jpg", "bianxieshi-dupin-baozha-jianceyi-2.jpg"],
-        imageHint: "当前为检测设备类示意图，建议后续换成真实仪器或操作场景图。",
-        tags: ["痕量检测", "快速", "筛查"],
-        metrics: [
-            { value: "痕量型", label: "痕量检测、快速识别，适合口岸现场初筛" },
-            { value: "报警型", label: "支持声光报警，反馈直观、响应迅速" },
-            { value: "精准型", label: "通过擦拭取样即可精准判定毒品与爆炸物种类" }
-        ],
-        features: [
-            "采用先进检测技术，实现痕量检测与快速识别。",
-            "通过擦拭取样即可开展检测并判定毒品与爆炸物种类。",
-            "具备声光报警功能，灵敏度高、响应迅速。"
-        ],
-        scenes: [
-            "口岸现场快速初筛。",
-            "车辆及随身物品检测。",
-            "缉毒缉私、搜爆安检。"
-        ],
-        notes: [
-            "适合作为现场快识别和快速分流装备使用。",
-            "采样时优先覆盖可疑接触面和重点点位。",
-            "报警结果应结合复测和后续处置流程综合研判。"
-        ],
-        value: [
-            "提升口岸现场快速初筛和风险分流能力。",
-            "增强对毒品、爆炸物痕量残留的识别效率。",
-            "为缉毒缉私、搜爆安检提供技术支撑。"
-        ],
-        references: [
-            { label: "便携痕量检测设备参考", url: "https://www.smithsdetection.com/products/ionscan-600/" }
-        ]
-    },
+const equipmentData = [
     {
         id: "dn-vmw-weizhen-shengming-tance",
         name: "无线微震生命探测车辆检查系统",
-        subtitle: "新锐智能查缉装备",
-        summary: "通过吸附于车底的无线微震动传感器感应车内藏匿人员产生的微小运动或颤动，实现车辆防逃逸和藏匿人员检测。",
+        subtitle: "新锐装备",
+        summary: "DN-VMW 无线微震生命探测车辆检查系统，是一套面向通道车辆防逃逸检查的生命探测装备，可通过吸附于车底的无线微震传感器感知车内藏匿人员活动，在不开门、不卸货条件下快速完成排查。",
         model: "DN-VMW",
-        status: "专项检测",
+        status: "生命探测",
         accent: "#67ebff",
         accent2: "#9dff8d",
-        imageFiles: ["无线微震探测仪-optimized.jpg", "无线微震探测仪-optimized.jpg"],
-        imageHint: "建议后续补充设备整机图和车底传感器作业图。",
-        tags: ["生命探测", "车辆检查", "防逃逸"],
+        imageFiles: ["无线微震探测仪-optimized.jpg", "生命探测仪1.jpg"],
+        imageHint: "主图展示设备整机，辅图用于补充生命探测仪的实际布设与作业场景。",
+        tags: ["生命探测", "车底传感", "防逃逸"],
         metrics: [
             { value: "≤30s", label: "单次检测时间短，适合通道车辆快速核查" },
             { value: "≥100m", label: "工业级无线射频传输，保障现场部署灵活性" },
-            { value: "双车检", label: "可增加传感器实现同时检测两台车辆，提升通行效率" }
+            { value: "双车检", label: "可增加传感器，实现同时检测两台车辆" }
         ],
         features: [
-            "依靠吸附在检测车辆车底的无线微震动传感器，感应车内藏匿人员传递到车辆上的微小运动或颤动。",
-            "通过专用程序和算法处理微震信号，判断车内是否藏匿人员。",
-            "支持客车、柜式和箱式货车等多种车型，在不开门、不卸货条件下开展检查。"
+            "可针对客车、柜式和箱式货车等车型开展不开门、不卸货检测。",
+            "无线射频连接，直接吸附车底，省去繁琐布线，安装便捷。",
+            "支持扩展车底扫描、车牌识别、身份识别等传感器并外接显示。",
+            "软件界面、指示灯和语音可同步提示检测结果，并提醒收回传感器。"
         ],
         scenes: [
-            "口岸通道车辆藏匿人员排查。",
+            "公路口岸通道车辆藏匿人员排查。",
             "货运车辆不开门、不卸货快速检查。",
             "重点车辆防逃逸专项检测。"
         ],
-        notes: [
-            "无线连接方式减少布线环节，便于车道现场快速部署。",
-            "软件界面、指示灯和语音可对检测结果进行多重提示。",
-            "控制和充电部件模块化设计，便于快速维保和故障部件更换。"
-        ],
         value: [
             "提升对车辆内部藏匿人员的非接触式发现能力。",
-            "减少开门卸货带来的时间损耗，兼顾通关效率与查验强度。",
-            "为口岸通道防逃逸检测提供稳定技术支撑。"
+            "兼顾通行效率与查验强度，减少开门卸货带来的时间损耗。",
+            "为口岸通道车辆防逃逸检测提供稳定技术支撑。"
         ],
         references: [
-            { label: "DN-VMW 技术文档", url: "#" }
+            { label: "设备说明文档", url: "#" }
         ]
     },
     {
         id: "sc-sj2000m-wurenji-guanzhi",
         name: "便携式无人机管制设备",
-        subtitle: "新锐智能查缉装备",
-        summary: "集侦测、反制和指挥显控于一体，可对入侵无人机实现事前预警、事中处置和事后取证。",
+        subtitle: "新锐装备",
+        summary: "便携式无人机管制设备，也就是现场常说的“反制枪”，集侦测、干扰和显控于一体，可对入侵无人机实施定向压制，迫使目标悬停、返航或驱离，保障重点区域低空安全。",
         model: "SC-SJ2000M",
         status: "低空防控",
         accent: "#67ebff",
         accent2: "#ff8f70",
-        imageFiles: ["携式无人机管制设备.jpg", "携式无人机管制设备.jpg"],
-        imageHint: "建议后续补充手持设备实物图和现场管制应用图。",
+        imageFiles: ["携式无人机管制设备1.png", "携式无人机管制设备2.png"],
+        imageHint: "当前图片用于展示手持式无人机管制设备外观，后续可补充现场反制应用图。",
         tags: ["无人机反制", "侦打一体", "低空防控"],
         metrics: [
-            { value: "0.3-6GHz", label: "覆盖常见无人机数传、遥控和图传相关频段" },
+            { value: "0.3-6GHz", label: "覆盖无人机数传、遥控及 WIFI 体制相关频段" },
             { value: "≥3km", label: "空旷环境下具备远距离无线电侦测能力" },
-            { value: "≤7kg", label: "设备便携，支持手持式、背负式应用" }
+            { value: "≤7kg", label: "设备轻量便携，支持手持式和背负式应用" }
         ],
         features: [
             "集无线电侦测、压制干扰和触控显控于一体，支持侦打一体应用。",
-            "可识别绝大多数消费级无人机、部分非常规无人机及穿越机目标。",
-            "可迫使无人机悬停、返航和驱离，并支持多台设备自组网联动。"
+            "可识别绝大多数消费级无人机、WIFI 类玩具机、部分固定翼无人机及穿越机。",
+            "具备 300MHz-6GHz 全频段干扰能力，可迫使无人机悬停、返航和驱离。",
+            "触控屏可显示无人机型号、方位、参考距离、目标画面等信息，并支持系统设置。"
         ],
         scenes: [
             "重点区域低空防控和预警处置。",
             "口岸周边无人机入侵拦截。",
             "重大安保任务中的无人机管制。"
         ],
-        notes: [
-            "触控屏可显示无人机型号、方位、参考距离和目标画面等信息。",
-            "支持黑白名单、历史数据和版本更新等系统设置。",
-            "可接入后端指挥管理平台，实现多点协同任务。"
-        ],
         value: [
             "提升对低空无人机目标的事前预警和快速处置能力。",
             "补强边检现场对新型飞行器干扰、驱离和取证的技术手段。",
-            "为口岸立体化安全防控提供新的装备支撑。"
+            "支持多台设备自组网并接入后端平台，增强协同处置能力。"
         ],
         references: [
-            { label: "SC-SJ2000M 技术文档", url: "#" }
+            { label: "设备说明文档", url: "#" }
+        ]
+    },
+    {
+        id: "chedi-jiance-jiqiren",
+        name: "车底检查机器人",
+        subtitle: "新锐装备",
+        summary: "车底检查机器人是一套可快速部署的智能车底查验装备，集车牌识别、车底扫描和全景视频侦查于一体，能够自动完成车底成像和异常排查，适合通道车辆快速查验。",
+        model: "UV-ROBOT",
+        status: "车底查验",
+        accent: "#67ebff",
+        accent2: "#ff8f70",
+        imageFiles: ["车底检查机器人主图.png", "车底检查机器人1.png"],
+        imageHint: "主图展示机器人整机，辅图用于补充车底查验设备外观与通道应用感受。",
+        tags: ["车底扫描", "智能查验", "快速部署"],
+        metrics: [
+            { value: "一键查验", label: "可自动完成车牌识别、路径规划、补光和车底成像" },
+            { value: "轻便型", label: "设备轻便小巧、机动便携，适合复杂场景快速部署" },
+            { value: "全景化", label: "集成车底扫描与全景视频侦查能力" }
+        ],
+        features: [
+            "集成车牌识别、车底扫描、全景视频侦查、一键查验与返航能力。",
+            "支持自动完成车轮对中、路径规划、车底补光和车底成像。",
+            "适用于复杂或狭窄车底环境下的智能查验任务。"
+        ],
+        scenes: [
+            "海关与边境管理车辆查验。",
+            "公安卡口重点车辆查验。",
+            "大型活动和重要会议周边安保。"
+        ],
+        value: [
+            "提升复杂或狭窄环境下车底查验效率。",
+            "减少人工俯身检查带来的风险与强度。",
+            "增强车辆底部异常结构与可疑藏匿物发现能力。"
+        ],
+        references: [
+            { label: "设备说明文档", url: "#" }
+        ]
+    },
+    {
+        id: "bianxieshi-dupin-baozha-jianceyi",
+        name: "爆炸物毒品安全检查设备",
+        subtitle: "新锐装备",
+        summary: "爆炸物毒品安全检查设备是一套基于离子迁移谱原理的台式痕量检测装备，可对爆炸物和毒品等违禁品进行快速识别，并通过声光报警提示检测结果，适用于现场初筛和复核。",
+        model: "TR2000DB",
+        status: "痕量检测",
+        accent: "#67ebff",
+        accent2: "#ffd166",
+        imageFiles: ["爆炸物毒品安全检查设备主图.png", "爆炸物毒品安全检查设备1.png"],
+        imageHint: "主图展示台式检查设备，辅图用于补充安全检查设备的结构与操作状态。",
+        tags: ["离子迁移谱", "痕量检测", "双模式"],
+        metrics: [
+            { value: "双模式", label: "可同时检测常见爆炸物和毒品等违禁品" },
+            { value: "快分析", label: "可快速分析物质种类，并给出可信度结果" },
+            { value: "大屏显", label: "采用 TFT 触摸液晶屏，检查结论直观" }
+        ],
+        features: [
+            "基于离子迁移谱原理，对痕量物质具有较高灵敏度和物质分辨能力。",
+            "支持毒品模式、爆炸物模式或双模式配置，并具备声光报警。",
+            "支持用户分级登录、标准物质库更新、数据导出备份和设备集成。",
+            "内置打印机与大屏触控界面，便于现场操作和结果留存。"
+        ],
+        scenes: [
+            "口岸现场痕量爆炸物检测。",
+            "口岸现场毒品初筛与复核。",
+            "安检场所违禁品快速识别。"
+        ],
+        value: [
+            "提升对爆炸物和毒品痕量残留的快速识别能力。",
+            "为现场检查结论提供更直观的技术支撑。",
+            "支持数据留存、导出与后续综合研判。"
+        ],
+        references: [
+            { label: "设备说明文档", url: "#" }
+        ]
+    },
+    {
+        id: "shouchi-beisanse-jianceyi",
+        name: "手持背散射检查仪",
+        subtitle: "新锐装备",
+        summary: "手持背散射检查仪是一款便携式成像扫描装备，可透过钢、铝、混凝土等表面快速发现隐藏的毒品、炸药和走私品，适用于车辆、包裹和可疑结构的无损检查。",
+        model: "PX1",
+        status: "手持成像",
+        accent: "#77f5ff",
+        accent2: "#3ddc97",
+        imageFiles: ["手持背散射检查仪主图.png", "手持背散射检查仪操作图1.png", "手持背散射检查仪操作图2.png", "手持背散射检查仪操作图3.png"],
+        imageHint: "主图展示手持背散射检查仪整机，其余图片用于补充现场操作状态。",
+        tags: ["背散射", "手持成像", "违禁品识别"],
+        metrics: [
+            { value: "强穿透", label: "可透过钢、铝、混凝土等表面发现隐藏违禁品" },
+            { value: "实时像", label: "无需背景板和 PDA 等外设，扫描过程实时成像" },
+            { value: "多场景", label: "适用于车辆、船舶、飞机、包裹和墙体检查" }
+        ],
+        features: [
+            "手持式一体化设计，安装电池、开启电源即可使用。",
+            "可透过多类表面材料发现隐藏的毒品、炸药、走私品等违禁品。",
+            "图像清晰直观，可拓宽工作人员视野并提升现场查缉效率。",
+            "支持与手机实时互联，便于现场快速判读。"
+        ],
+        scenes: [
+            "公安和边防缉毒车辆检查。",
+            "边防检查站嫌疑车辆和行李包裹筛查。",
+            "反恐安保、海事缉查和交通枢纽应急检查。"
+        ],
+        value: [
+            "提升对隐蔽违禁品的无损快速发现能力。",
+            "减少常规拆检对现场效率的影响。",
+            "增强复杂表面和封闭结构的可视化查验能力。"
+        ],
+        references: [
+            { label: "设备说明文档", url: "#" }
+        ]
+    },
+    {
+        id: "sixiang-neikuijing",
+        name: "四向内窥镜",
+        subtitle: "新锐装备",
+        summary: "四向内窥镜是一款用于狭小密闭空间可视化探查的精密设备，可无损查看车辆油箱、水箱、排气管等视线不可达部位，帮助发现异物和异常结构。",
+        model: "4-WAY SCOPE",
+        status: "腔体探查",
+        accent: "#67ebff",
+        accent2: "#9dff8d",
+        imageFiles: ["四向内窥镜主图.png", "四向内窥镜主图.png"],
+        imageHint: "当前图片用于展示四向内窥镜外观，后续可补充车辆腔体探查实拍图。",
+        tags: ["四向探查", "密闭空间", "无损检查"],
+        metrics: [
+            { value: "无损查", label: "可无伤呈现密闭空间内物体表面状况" },
+            { value: "视线外", label: "适用于车辆邮箱、水箱、排气管等视线不可达位置" },
+            { value: "异物判", label: "可辅助判断异物和规格尺寸是否正常" }
+        ],
+        features: [
+            "设计精密、技术先进，适合密闭空间内部状态检查。",
+            "能够清晰呈现被检部位表面状况并辅助判断异物。",
+            "常用于检查车辆邮箱、水箱、排气管等视线不可达区域。"
+        ],
+        scenes: [
+            "车辆邮箱内部检查。",
+            "车辆水箱与排气管探查。",
+            "封闭腔体异物和异常结构排查。"
+        ],
+        value: [
+            "补足人工视线不可达部位的检查盲区。",
+            "降低对封闭结构进行破拆检查的必要性。",
+            "增强密闭空间异常结构和异物发现能力。"
+        ],
+        references: [
+            { label: "设备说明文档", url: "#" }
+        ]
+    },
+    {
+        id: "chedi-jiancha-shipinyi",
+        name: "车底检查视频仪",
+        subtitle: "新锐装备",
+        summary: "车底检查视频仪是一款便携式可视化探查装备，主要用于车辆底部安全排查，可通过红外夜视高清摄像头和电动调节镜头发现车底可疑物、危险物和异常改动。",
+        model: "UVI-VIDEO",
+        status: "视频查验",
+        accent: "#67ebff",
+        accent2: "#7fe7ff",
+        imageFiles: ["车底检查视频仪主图.png", "车底检查视频仪1.png"],
+        imageHint: "主图展示车底检查视频仪整机，辅图用于补充视频探查设备的结构细节。",
+        tags: ["车底视频", "红外夜视", "可视化检查"],
+        metrics: [
+            { value: "355°", label: "镜头支持 355° 电动调节，便于车底多角度排查" },
+            { value: "7寸屏", label: "配备 7 寸高清显示屏，便于现场观察判读" },
+            { value: "折叠式", label: "两段折叠式铝合金机身，移动方便、操作省力" }
+        ],
+        features: [
+            "核心用于车辆底部安全排查，可检测车底是否藏匿可疑或危险物品、人员。",
+            "搭载红外夜视高清摄像头和 7 寸高清显示屏，支持低光环境下检查。",
+            "支持 355° 电动调节镜头，配备两段折叠式铝合金机身和便携箱包。"
+        ],
+        scenes: [
+            "车辆底部可疑物排查。",
+            "车身底部非法改动检查。",
+            "人员不便到达区域的可视化探查。"
+        ],
+        value: [
+            "提升车底区域可视化查验效率。",
+            "降低人工俯身和低位检查的作业负担。",
+            "增强车底可疑物和异常结构的发现能力。"
+        ],
+        references: [
+            { label: "设备说明文档", url: "#" }
         ]
     }
 ];
@@ -462,15 +352,26 @@ function renderDetail() {
         ].join(", ");
     }
     document.getElementById("detail-image-hint").textContent = item.imageHint;
-    document.getElementById("detail-showcase-primary").src = getImagePath(item.imageFiles[0]);
-    document.getElementById("detail-showcase-primary").alt = `${item.name}主展示图`;
-    document.getElementById("detail-showcase-secondary").src = getImagePath(item.imageFiles[1] || item.imageFiles[0]);
-    document.getElementById("detail-showcase-secondary").alt = `${item.name}补充展示图`;
+    const showcaseGrid = document.querySelector(".showcase-grid");
+    if (showcaseGrid) {
+        const galleryClass =
+            item.imageFiles.length <= 1 ? "showcase-single" :
+            item.imageFiles.length === 2 ? "showcase-double" :
+            item.imageFiles.length === 3 ? "showcase-triple" :
+            "showcase-quad";
+        showcaseGrid.className = `showcase-grid ${galleryClass}`;
+        showcaseGrid.innerHTML = item.imageFiles.map((fileName, index) => `
+            <div class="showcase-frame ${index === 0 ? "showcase-primary" : "showcase-secondary"}">
+                <img
+                    src="${getImagePath(fileName)}"
+                    alt="${item.name}${index === 0 ? "主展示图" : `补充展示图${index}`}"
+                    loading="lazy"
+                    decoding="async"
+                >
+            </div>
+        `).join("");
+    }
     document.getElementById("detail-showcase-caption").textContent = item.imageHint;
-    document.getElementById("detail-showcase-primary").loading = "lazy";
-    document.getElementById("detail-showcase-primary").decoding = "async";
-    document.getElementById("detail-showcase-secondary").loading = "lazy";
-    document.getElementById("detail-showcase-secondary").decoding = "async";
     document.getElementById("detail-tags").innerHTML = item.tags.map((tag) => `<span class="detail-chip">${tag}</span>`).join("");
     document.getElementById("detail-metrics").innerHTML = createMetrics(item.metrics);
     document.getElementById("detail-features").innerHTML = createList(item.features);
@@ -488,4 +389,3 @@ document.addEventListener("DOMContentLoaded", () => {
         renderDetail();
     }
 });
-
