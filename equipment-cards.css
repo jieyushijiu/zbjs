@@ -1,0 +1,305 @@
+:root {
+    --card-width: 15cm;
+    --card-height: 10cm;
+    --paper-bg: #f6fbff;
+    --paper-bg-soft: #eef5fb;
+    --ink: #18364a;
+    --muted: #658094;
+    --accent: #2e88c8;
+    --accent-soft: rgba(46, 136, 200, 0.16);
+    --line: rgba(34, 104, 154, 0.16);
+    --warm: #b96c40;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: #dce8f1;
+    color: var(--ink);
+    font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+}
+
+body {
+    padding: 24px;
+}
+
+.cards-root {
+    display: grid;
+    gap: 24px;
+    justify-content: center;
+}
+
+.card-sheet {
+    position: relative;
+    width: var(--card-width);
+    height: var(--card-height);
+    overflow: hidden;
+    border-radius: 14px;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(240, 247, 252, 0.98)),
+        linear-gradient(135deg, var(--paper-bg), var(--paper-bg-soft));
+    box-shadow:
+        0 18px 48px rgba(17, 39, 58, 0.15),
+        inset 0 0 0 1px rgba(33, 106, 160, 0.08);
+}
+
+.card-sheet::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 6% 0%, rgba(83, 190, 239, 0.18), transparent 24%),
+        radial-gradient(circle at 100% 0%, rgba(108, 215, 186, 0.14), transparent 26%),
+        linear-gradient(180deg, rgba(46, 136, 200, 0.05), transparent 34%);
+    pointer-events: none;
+}
+
+.card-sheet::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(128deg, transparent 0 10%, rgba(109, 213, 245, 0.18) 10% 12%, transparent 12% 100%),
+        radial-gradient(circle at 92% 80%, rgba(100, 202, 238, 0.12), transparent 20%);
+    pointer-events: none;
+}
+
+.card-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+    padding: 0.46cm 0.5cm 0.44cm;
+}
+
+.card-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.28cm;
+    align-items: center;
+    padding-bottom: 0.2cm;
+    border-bottom: 1px solid var(--line);
+}
+
+.brand-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.18cm;
+    min-width: 0;
+}
+
+.card-logo {
+    width: 1.06cm;
+    height: 1.06cm;
+    object-fit: contain;
+    flex: 0 0 auto;
+}
+
+.brand-copy {
+    min-width: 0;
+}
+
+.brand-cn {
+    color: #21577c;
+    font-size: 0.22cm;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.brand-en {
+    margin-top: 0.03cm;
+    color: #8096a7;
+    font-size: 0.13cm;
+    letter-spacing: 0.16em;
+}
+
+.card-title-block {
+    min-width: 0;
+    padding-left: 0.08cm;
+}
+
+.title-kicker {
+    color: var(--accent);
+    font-size: 0.18cm;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+.card-title {
+    margin: 0.06cm 0 0;
+    color: var(--warm);
+    font-size: 0.5cm;
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+}
+
+.card-body {
+    display: grid;
+    grid-template-columns: 1fr 3.9cm;
+    gap: 0.3cm;
+    min-height: 0;
+    padding-top: 0.26cm;
+}
+
+.card-main {
+    display: grid;
+    grid-template-rows: 4.9cm auto;
+    gap: 0.2cm;
+    min-height: 0;
+}
+
+.card-image-wrap {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: 0.1cm;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid rgba(46, 136, 200, 0.16);
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(234, 244, 250, 0.9)),
+        rgba(255, 255, 255, 0.92);
+    box-shadow:
+        inset 0 0 20px rgba(46, 136, 200, 0.07),
+        0 10px 20px rgba(25, 64, 94, 0.08);
+}
+
+.card-image-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(135deg, transparent 0%, rgba(103, 220, 255, 0.08) 72%, transparent 100%);
+    pointer-events: none;
+}
+
+.card-image {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: center center;
+    padding: 0;
+}
+
+.summary-panel {
+    padding: 0.18cm 0.22cm 0.16cm;
+    border-radius: 12px;
+    border: 1px solid rgba(34, 104, 154, 0.1);
+    background: rgba(255, 255, 255, 0.72);
+}
+
+.panel-label {
+    color: var(--accent);
+    font-size: 0.17cm;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+}
+
+.card-summary {
+    margin: 0.1cm 0 0;
+    color: var(--ink);
+    font-size: 0.265cm;
+    line-height: 1.7;
+}
+
+.card-side {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 0.18cm;
+}
+
+.meta-panel,
+.qr-slot {
+    border-radius: 12px;
+    border: 1px solid rgba(34, 104, 154, 0.1);
+    background: rgba(255, 255, 255, 0.76);
+}
+
+.meta-panel {
+    padding: 0.2cm 0.24cm;
+}
+
+.meta-value {
+    margin-top: 0.08cm;
+    color: #21577c;
+    font-size: 0.22cm;
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+.qr-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 4.86cm;
+    padding: 0.22cm 0.22cm 0.2cm;
+    text-align: center;
+}
+
+.qr-slot-title {
+    color: #21577c;
+    font-size: 0.19cm;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+}
+
+.qr-slot-box {
+    width: 2.7cm;
+    height: 2.7cm;
+    margin-top: 0.16cm;
+    border-radius: 12px;
+    border: 2px dashed rgba(46, 136, 200, 0.3);
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(237, 245, 251, 0.96)),
+        #fff;
+    box-shadow: inset 0 0 18px rgba(46, 136, 200, 0.06);
+}
+
+.qr-slot-text {
+    margin-top: 0.16cm;
+    color: var(--muted);
+    font-size: 0.2cm;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.hint-panel {
+    align-self: end;
+}
+
+@page {
+    size: 15cm 10cm;
+    margin: 0;
+}
+
+@media print {
+    html,
+    body {
+        background: #fff;
+    }
+
+    body {
+        padding: 0;
+    }
+
+    .cards-root {
+        gap: 0;
+    }
+
+    .card-sheet {
+        border-radius: 0;
+        box-shadow: none;
+        break-after: page;
+        page-break-after: always;
+    }
+}
