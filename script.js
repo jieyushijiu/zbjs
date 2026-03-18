@@ -45,7 +45,7 @@ const equipmentData = [
         status: "低空防控",
         accent: "#67ebff",
         accent2: "#ff8f70",
-        imageFiles: ["携式无人机管制设备1.png", "携式无人机管制设备2.png"],
+        imageFiles: ["携式无人机管制设备1-optimized.jpg", "携式无人机管制设备2-optimized.jpg"],
         imageHint: "当前图片用于展示手持式无人机管制设备外观，后续可补充现场反制应用图。",
         tags: ["无人机反制", "侦打一体", "低空防控"],
         metrics: [
@@ -82,7 +82,7 @@ const equipmentData = [
         status: "车底查验",
         accent: "#67ebff",
         accent2: "#ff8f70",
-        imageFiles: ["车底检查机器人主图.png", "车底检查机器人1.png"],
+        imageFiles: ["车底检查机器人主图.png", "车底检查机器人1-optimized.jpg"],
         imageHint: "主图展示机器人整机，辅图用于补充车底查验设备外观与通道应用感受。",
         tags: ["车底扫描", "智能查验", "快速部署"],
         metrics: [
@@ -118,7 +118,7 @@ const equipmentData = [
         status: "痕量检测",
         accent: "#67ebff",
         accent2: "#ffd166",
-        imageFiles: ["爆炸物毒品安全检查设备主图.png", "爆炸物毒品安全检查设备1.png"],
+        imageFiles: ["爆炸物毒品安全检查设备主图-optimized.jpg", "爆炸物毒品安全检查设备1.png"],
         imageHint: "主图展示台式检查设备，辅图用于补充安全检查设备的结构与操作状态。",
         tags: ["离子迁移谱", "痕量检测", "双模式"],
         metrics: [

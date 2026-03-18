@@ -32,9 +32,10 @@ body {
     font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
     color: var(--text);
     background:
-        radial-gradient(circle at 15% 20%, rgba(103, 235, 255, 0.12), transparent 28%),
-        radial-gradient(circle at 80% 10%, rgba(61, 220, 151, 0.1), transparent 24%),
-        linear-gradient(180deg, #04101a 0%, #07131f 45%, #06111b 100%);
+        url("image/background-atlas.svg") center top / cover no-repeat fixed,
+        radial-gradient(circle at 15% 20%, rgba(103, 235, 255, 0.06), transparent 28%),
+        radial-gradient(circle at 80% 10%, rgba(61, 220, 151, 0.05), transparent 24%),
+        linear-gradient(180deg, #f9fcff 0%, #f3f8fc 48%, #eef5fa 100%);
 }
 
 a {
