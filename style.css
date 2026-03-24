@@ -517,6 +517,7 @@ main,
 .section-title {
     margin: 4px 0 0;
     font-size: clamp(1.8rem, 3vw, 2.7rem);
+    color: #18364a;
 }
 
 .equipment-grid {

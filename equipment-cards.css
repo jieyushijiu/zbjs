@@ -265,6 +265,24 @@ body {
     box-shadow: inset 0 0 18px rgba(46, 136, 200, 0.06);
 }
 
+.qr-slot-box-empty::before {
+    content: "待添加二维码";
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    color: var(--muted);
+    font-size: 0.18cm;
+    letter-spacing: 0.08em;
+}
+
+.qr-slot-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 0.12cm;
+}
+
 .qr-slot-text {
     margin-top: 0.16cm;
     color: var(--muted);

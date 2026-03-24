@@ -10,6 +10,10 @@ function getCardImagePath(fileName) {
     return `image/${fileName}`;
 }
 
+function getQrImagePath(itemName) {
+    return `image/二维码/${itemName}.png`;
+}
+
 function createCard(item) {
     return `
         <section class="card-sheet">
@@ -45,8 +49,10 @@ function createCard(item) {
                             <div class="meta-value">${item.model}</div>
                         </div>
                         <div class="qr-slot">
-                            <div class="qr-slot-title">二维码区域</div>
-                            <div class="qr-slot-box"></div>
+                            <div class="qr-slot-title">二维码</div>
+                            <div class="qr-slot-box">
+                                <img class="qr-slot-image" src="${getQrImagePath(item.name)}" alt="${item.name}二维码" onerror="this.closest('.qr-slot-box').classList.add('qr-slot-box-empty'); this.remove();">
+                            </div>
                             <div class="qr-slot-text">扫码查看装备详情</div>
                         </div>
                         <div class="meta-panel hint-panel">
