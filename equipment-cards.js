@@ -1,3 +1,12 @@
+const homepageCard = {
+    name: "装备数字展厅主页",
+    summary: "扫码可直接进入装备数字展厅主页，统一查看公路口岸通道查缉装备矩阵、装备详情页面和现场展示内容。",
+    model: "HOME",
+    status: "主页入口",
+    imageFiles: ["主页.png"],
+    qrName: "主页"
+};
+
 function truncateCardSummary(text) {
     const normalized = (text || "").replace(/\s+/g, " ").trim();
     if (normalized.length <= 102) {
@@ -35,7 +44,7 @@ function createCard(item) {
                 <div class="card-body">
                     <div class="card-main">
                         <div class="card-image-wrap">
-                            <img class="card-image" src="${getCardImagePath(item.imageFiles[0])}" alt="${item.name}">
+                            <img class="card-image" src="${getCardImagePath(item.imageFiles[0])}" alt="${item.name}" loading="lazy" decoding="async">
                         </div>
                         <div class="summary-panel">
                             <div class="panel-label">简短介绍</div>
@@ -51,9 +60,16 @@ function createCard(item) {
                         <div class="qr-slot">
                             <div class="qr-slot-title">二维码</div>
                             <div class="qr-slot-box">
-                                <img class="qr-slot-image" src="${getQrImagePath(item.name)}" alt="${item.name}二维码" onerror="this.closest('.qr-slot-box').classList.add('qr-slot-box-empty'); this.remove();">
+                                <img
+                                    class="qr-slot-image"
+                                    src="${getQrImagePath(item.qrName || item.name)}"
+                                    alt="${item.name}二维码"
+                                    loading="lazy"
+                                    decoding="async"
+                                    onerror="this.closest('.qr-slot-box').classList.add('qr-slot-box-empty'); this.remove();"
+                                >
                             </div>
-                            <div class="qr-slot-text">扫码查看装备详情</div>
+                            <div class="qr-slot-text">扫码查看详情</div>
                         </div>
                         <div class="meta-panel hint-panel">
                             <div class="panel-label">类别</div>
@@ -72,5 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    root.innerHTML = equipmentData.map(createCard).join("");
+    const cardItems = [homepageCard, ...equipmentData];
+    root.innerHTML = cardItems.map(createCard).join("");
 });
