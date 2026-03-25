@@ -454,6 +454,65 @@ function renderDetail() {
     document.getElementById("detail-references").innerHTML = createReferences(item.references);
 }
 
+function isWeChatBrowser() {
+    return /MicroMessenger/i.test(navigator.userAgent || "");
+}
+
+async function copyToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+    }
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    const ok = document.execCommand("copy");
+    textarea.remove();
+    return ok;
+}
+
+function showWeChatGuide() {
+    if (!isWeChatBrowser()) {
+        return;
+    }
+    if (document.getElementById("wx-guide-overlay")) {
+        return;
+    }
+
+    const overlay = document.createElement("div");
+    overlay.id = "wx-guide-overlay";
+    overlay.className = "wx-guide-overlay";
+    overlay.innerHTML = `
+        <div class="wx-guide-card">
+            <h3>微信内访问受限</h3>
+            <p>请点击右上角“···”，选择“在浏览器打开”。</p>
+            <p class="wx-guide-url">${window.location.href}</p>
+            <div class="wx-guide-actions">
+                <button type="button" class="wx-guide-btn wx-guide-btn-primary" id="wx-copy-link">复制链接</button>
+                <button type="button" class="wx-guide-btn" id="wx-close-guide">我知道了</button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    const closeBtn = document.getElementById("wx-close-guide");
+    const copyBtn = document.getElementById("wx-copy-link");
+    if (closeBtn) {
+        closeBtn.addEventListener("click", () => overlay.remove());
+    }
+    if (copyBtn) {
+        copyBtn.addEventListener("click", async () => {
+            const ok = await copyToClipboard(window.location.href);
+            copyBtn.textContent = ok ? "已复制" : "复制失败";
+        });
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const pageType = document.body.dataset.page;
     if (pageType === "home") {
@@ -462,4 +521,5 @@ document.addEventListener("DOMContentLoaded", () => {
     if (pageType === "detail") {
         renderDetail();
     }
+    showWeChatGuide();
 });
