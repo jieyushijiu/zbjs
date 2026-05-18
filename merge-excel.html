@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Excel 合并工具</title>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      min-height: 100vh;
+      padding: 32px 16px;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #1a1a1a;
+    }
+    .subtitle {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 28px;
+    }
+
+    /* ---- 步骤卡片 ---- */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: #1677ff;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-badge.done { background: #52c41a; }
+    .step-badge.disabled { background: #d9d9d9; }
+
+    /* ---- 上传区 ---- */
+    .drop-zone {
+      border: 2px dashed #c0cbda;
+      border-radius: 8px;
+      padding: 36px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      background: #fafbfc;
+    }
+    .drop-zone:hover, .drop-zone.drag-over {
+      border-color: #1677ff;
+      background: #e8f1ff;
+    }
+    .drop-zone .icon { font-size: 36px; margin-bottom: 8px; }
+    .drop-zone .hint { font-size: 14px; color: #555; }
+    .drop-zone .hint span { color: #1677ff; font-weight: 600; }
+    .drop-zone .hint2 { font-size: 12px; color: #aaa; margin-top: 4px; }
+    #fileInput { display: none; }
+
+    /* ---- 文件列表 ---- */
+    #fileList {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .file-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: #f6f8fa;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+    .file-item .file-name { font-weight: 500; }
+    .file-item .file-rows { color: #888; font-size: 12px; }
+    .file-item .remove-btn {
+      cursor: pointer;
+      color: #ff4d4f;
+      font-size: 16px;
+      line-height: 1;
+      padding: 0 4px;
+      background: none;
+      border: none;
+    }
+    .file-item .remove-btn:hover { opacity: .7; }
+
+    /* ---- 列勾选 ---- */
+    #colSection { display: none; }
+    .col-tip {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 12px;
+    }
+    .col-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .col-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1.5px solid #d9d9d9;
+      font-size: 13px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+      user-select: none;
+    }
+    .col-chip input { display: none; }
+    .col-chip.checked {
+      border-color: #1677ff;
+      background: #e8f1ff;
+      color: #1677ff;
+      font-weight: 500;
+    }
+    .col-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+    .col-actions a { color: #1677ff; cursor: pointer; text-decoration: none; }
+    .col-actions a:hover { text-decoration: underline; }
+
+    /* ---- 选项 ---- */
+    .option-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #555;
+      margin-top: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .option-row input[type=checkbox] { width: 15px; height: 15px; cursor: pointer; }
+
+    /* ---- 按钮 ---- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 28px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: opacity .2s, transform .1s;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn-primary { background: #1677ff; color: #fff; }
+    .btn-primary:hover { opacity: .88; }
+    .btn-primary:disabled { background: #b0c8f5; cursor: not-allowed; transform: none; }
+    .btn-success { background: #52c41a; color: #fff; }
+    .btn-success:hover { opacity: .88; }
+
+    /* ---- 进度 / 结果 ---- */
+    #mergeSection { display: none; }
+    #resultSection { display: none; margin-top: 16px; }
+    .result-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: #f6ffed;
+      border: 1px solid #b7eb8f;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .result-box .result-info { color: #389e0d; font-weight: 600; }
+    .result-box .result-sub { color: #555; font-size: 12px; margin-top: 2px; }
+    #progressBar {
+      width: 100%;
+      height: 6px;
+      background: #e8e8e8;
+      border-radius: 3px;
+      margin-top: 14px;
+      overflow: hidden;
+      display: none;
+    }
+    #progressFill {
+      height: 100%;
+      background: #1677ff;
+      border-radius: 3px;
+      width: 0%;
+      transition: width .3s;
+    }
+    .error-msg {
+      color: #ff4d4f;
+      font-size: 13px;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Excel 合并工具</h1>
+  <p class="subtitle">将多个 Excel 文件中的指定列合并到一个文件，纯浏览器运行，无需安装任何软件</p>
+
+  <!-- Step 1: 上传 -->
+  <div class="card" id="card1">
+    <div class="card-title">
+      <span class="step-badge" id="badge1">1</span>
+      上传 Excel 文件
+    </div>
+    <div class="drop-zone" id="dropZone">
+      <div class="icon">📂</div>
+      <div class="hint">拖拽文件到此处，或 <span>点击选择文件</span></div>
+      <div class="hint2">支持 .xlsx / .xls，可同时选择多个文件</div>
+    </div>
+    <input type="file" id="fileInput" accept=".xlsx,.xls" multiple />
+    <div id="fileList"></div>
+  </div>
+
+  <!-- Step 2: 选列 -->
+  <div class="card" id="colSection">
+    <div class="card-title">
+      <span class="step-badge" id="badge2">2</span>
+      选择要提取的列
+    </div>
+    <p class="col-tip">以下是所有文件中检测到的列名，勾选需要合并的列：</p>
+    <div class="col-grid" id="colGrid"></div>
+    <div class="col-actions">
+      <a id="selectAll">全选</a>
+      <a id="clearAll">取消全选</a>
+    </div>
+    <label class="option-row" style="margin-top:14px">
+      <input type="checkbox" id="optSourceCol" checked />
+      在结果中添加"来源文件"列（标注每行数据来自哪个文件）
+    </label>
+    <label class="option-row">
+      <input type="checkbox" id="optRepeatHeader" checked />
+      每个文件数据前重复一行表头
+    </label>
+  </div>
+
+  <!-- Step 3: 合并 -->
+  <div class="card" id="mergeSection">
+    <div class="card-title">
+      <span class="step-badge" id="badge3">3</span>
+      合并并下载
+    </div>
+    <button class="btn btn-primary" id="mergeBtn">开始合并并下载</button>
+    <div id="progressBar"><div id="progressFill"></div></div>
+    <p class="error-msg" id="errorMsg"></p>
+    <div id="resultSection">
+      <div class="result-box">
+        <div>
+          <div class="result-info" id="resultInfo"></div>
+          <div class="result-sub" id="resultSub"></div>
+        </div>
+        <button class="btn btn-success" id="downloadAgainBtn">再次下载</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---- 状态 ----
+  const state = {
+    files: [],        // { file, name, rows, data: [{...}], headers: [...] }
+    allCols: [],      // 去重后的所有列名
+    lastWorkbook: null,
+    lastFilename: ""
+  };
+
+  // ---- DOM ----
+  const dropZone      = document.getElementById("dropZone");
+  const fileInput     = document.getElementById("fileInput");
+  const fileListEl    = document.getElementById("fileList");
+  const colSection    = document.getElementById("colSection");
+  const colGrid       = document.getElementById("colGrid");
+  const mergeSection  = document.getElementById("mergeSection");
+  const mergeBtn      = document.getElementById("mergeBtn");
+  const progressBar   = document.getElementById("progressBar");
+  const progressFill  = document.getElementById("progressFill");
+  const errorMsg      = document.getElementById("errorMsg");
+  const resultSection = document.getElementById("resultSection");
+  const resultInfo    = document.getElementById("resultInfo");
+  const resultSub     = document.getElementById("resultSub");
+  const badge1        = document.getElementById("badge1");
+  const badge2        = document.getElementById("badge2");
+  const badge3        = document.getElementById("badge3");
+
+  // ---- 拖拽上传 ----
+  dropZone.addEventListener("click", () => fileInput.click());
+  dropZone.addEventListener("dragover", e => { e.preventDefault(); dropZone.classList.add("drag-over"); });
+  dropZone.addEventListener("dragleave", () => dropZone.classList.remove("drag-over"));
+  dropZone.addEventListener("drop", e => {
+    e.preventDefault();
+    dropZone.classList.remove("drag-over");
+    handleFiles(e.dataTransfer.files);
+  });
+  fileInput.addEventListener("change", e => handleFiles(e.target.files));
+
+  // ---- 处理文件 ----
+  async function handleFiles(fileList) {
+    const newFiles = Array.from(fileList).filter(f =>
+      f.name.endsWith(".xlsx") || f.name.endsWith(".xls")
+    );
+    if (!newFiles.length) return;
+
+    for (const f of newFiles) {
+      if (state.files.find(s => s.name === f.name)) continue; // 去重
+      try {
+        const parsed = await readExcel(f);
+        state.files.push({ file: f, name: f.name, rows: parsed.rows, data: parsed.data, headers: parsed.headers });
+      } catch(e) {
+        alert("读取文件失败：" + f.name + "\n" + e.message);
+      }
+    }
+
+    renderFileList();
+    rebuildCols();
+    updateUI();
+    // reset input so same file can be re-added after removal
+    fileInput.value = "";
+  }
+
+  function readExcel(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const wb = XLSX.read(e.target.result, { type: "array" });
+          const ws = wb.Sheets[wb.SheetNames[0]];
+          const data = XLSX.utils.sheet_to_json(ws, { defval: "" });
+          const headers = data.length ? Object.keys(data[0]) : [];
+          resolve({ rows: data.length, data, headers });
+        } catch(err) { reject(err); }
+      };
+      reader.onerror = () => reject(new Error("FileReader error"));
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
+  function renderFileList() {
+    fileListEl.innerHTML = "";
+    state.files.forEach((s, idx) => {
+      const div = document.createElement("div");
+      div.className = "file-item";
+      div.innerHTML = `
+        <span class="file-name">${s.name}</span>
+        <span class="file-rows">${s.rows} 行数据</span>
+        <button class="remove-btn" data-idx="${idx}" title="移除">✕</button>
+      `;
+      fileListEl.appendChild(div);
+    });
+    fileListEl.querySelectorAll(".remove-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        state.files.splice(+btn.dataset.idx, 1);
+        renderFileList();
+        rebuildCols();
+        updateUI();
+      });
+    });
+  }
+
+  function rebuildCols() {
+    const set = new Set();
+    state.files.forEach(s => s.headers.forEach(h => set.add(h)));
+    state.allCols = Array.from(set);
+    renderColGrid();
+  }
+
+  function renderColGrid() {
+    colGrid.innerHTML = "";
+    state.allCols.forEach(col => {
+      const label = document.createElement("label");
+      label.className = "col-chip checked";
+      label.innerHTML = `<input type="checkbox" checked />${col}`;
+      label.querySelector("input").addEventListener("change", function() {
+        label.classList.toggle("checked", this.checked);
+      });
+      colGrid.appendChild(label);
+    });
+  }
+
+  function updateUI() {
+    const hasFiles = state.files.length > 0;
+    const hasCols  = state.allCols.length > 0;
+
+    colSection.style.display  = hasFiles && hasCols ? "block" : "none";
+    mergeSection.style.display = hasFiles && hasCols ? "block" : "none";
+
+    badge1.className = "step-badge" + (hasFiles ? " done" : "");
+    badge1.textContent = hasFiles ? "✓" : "1";
+  }
+
+  // ---- 全选 / 取消 ----
+  document.getElementById("selectAll").addEventListener("click", () => {
+    colGrid.querySelectorAll("label").forEach(l => {
+      l.classList.add("checked");
+      l.querySelector("input").checked = true;
+    });
+  });
+  document.getElementById("clearAll").addEventListener("click", () => {
+    colGrid.querySelectorAll("label").forEach(l => {
+      l.classList.remove("checked");
+      l.querySelector("input").checked = false;
+    });
+  });
+
+  // ---- 合并 ----
+  mergeBtn.addEventListener("click", doMerge);
+  document.getElementById("downloadAgainBtn").addEventListener("click", () => {
+    if (state.lastWorkbook) XLSX.writeFile(state.lastWorkbook, state.lastFilename);
+  });
+
+  function doMerge() {
+    errorMsg.style.display = "none";
+    resultSection.style.display = "none";
+
+    const selectedCols = Array.from(colGrid.querySelectorAll("label.checked")).map(l => l.textContent.trim());
+    if (!selectedCols.length) { showError("请至少勾选一列！"); return; }
+
+    const addSource       = document.getElementById("optSourceCol").checked;
+    const repeatHeader    = document.getElementById("optRepeatHeader").checked;
+
+    progressBar.style.display = "block";
+    progressFill.style.width  = "0%";
+    mergeBtn.disabled = true;
+
+    setTimeout(() => {
+      try {
+        const wb = XLSX.utils.book_new();
+        const outputRows = [];
+        let totalDataRows = 0;
+
+        const headerRow = addSource ? ["来源文件", ...selectedCols] : selectedCols;
+
+        // 第一个文件前加表头（如果不重复表头，只加一次）
+        if (!repeatHeader) outputRows.push(headerRow);
+
+        state.files.forEach((s, i) => {
+          if (repeatHeader) outputRows.push(headerRow);
+
+          s.data.forEach(row => {
+            const newRow = addSource ? [s.name] : [];
+            selectedCols.forEach(col => newRow.push(row[col] !== undefined ? row[col] : ""));
+            outputRows.push(newRow);
+            totalDataRows++;
+          });
+
+          progressFill.style.width = Math.round((i + 1) / state.files.length * 100) + "%";
+        });
+
+        const ws = XLSX.utils.aoa_to_sheet(outputRows);
+        // 设置列宽
+        const colWidths = headerRow.map(h => ({ wch: Math.max(String(h).length * 2, 10) }));
+        ws["!cols"] = colWidths;
+
+        XLSX.utils.book_append_sheet(wb, ws, "合并结果");
+
+        const now = new Date();
+        const ts  = `${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}`;
+        const filename = `合并结果_${ts}.xlsx`;
+
+        state.lastWorkbook = wb;
+        state.lastFilename = filename;
+
+        XLSX.writeFile(wb, filename);
+
+        resultInfo.textContent = `合并完成！共 ${state.files.length} 个文件，${totalDataRows} 行数据`;
+        resultSub.textContent  = `文件名：${filename}，已自动开始下载`;
+        resultSection.style.display = "block";
+        badge2.className = "step-badge done"; badge2.textContent = "✓";
+        badge3.className = "step-badge done"; badge3.textContent = "✓";
+      } catch(e) {
+        showError("合并失败：" + e.message);
+      } finally {
+        mergeBtn.disabled = false;
+        progressBar.style.display = "none";
+      }
+    }, 100);
+  }
+
+  function showError(msg) {
+    errorMsg.textContent = msg;
+    errorMsg.style.display = "block";
+  }
+
+  function pad(n) { return String(n).padStart(2, "0"); }
+</script>
+</body>
+</html>
